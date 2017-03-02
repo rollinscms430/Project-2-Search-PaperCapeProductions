@@ -1,7 +1,6 @@
 file = open('words.txt')
 dictionary = {}
 
-# Creates dictionary with every anag
 for word in file:
     key = tuple(sorted(word))
     list = []
