@@ -1,4 +1,6 @@
-"""Holds information for each state including the frontier and returns the next element in the frontier"""
+"""Holds information for each state including the 
+state name and frontier.
+"""
 class State(object):
     def __init__(self, name):
         self.name = name
@@ -9,14 +11,9 @@ class State(object):
         return self.name
         
     def add_to_frontier(self, word):
+        """Adds a word the the frontier of
+        the state."""
         self.list.append(word)
-    
-    def get_next_element(self):
-        index = self.count
-        self.count += 1
-        length = len(self.get_frontier())
-        if length > index:
-            return self.list[index]
     
     def get_frontier(self):
         return self.list
@@ -43,6 +40,7 @@ class Stack:
 
 
 def build_state(state, possible_words):
+    """Builds each state."""
     for word in possible_words:
         if is_valid(word, state.get_name()):
             state.add_to_frontier(word)
@@ -50,6 +48,8 @@ def build_state(state, possible_words):
 
     
 def is_valid(word, state_name):
+    """Checks to see if a word is one letter away
+    fromt the given word."""
     count = 0
     if word == state_name:
         return False
@@ -61,6 +61,11 @@ def is_valid(word, state_name):
     return True
     
 def create_dict(state, dict, goal):
+    """Creates the dictionary of states. 
+    It achieves this by using a depth first search
+    strategy by creating a new state and its frontier and then
+    adds it to the dictionary for each new word found.
+    """
     new_dict = {}
     state = build_state(state, dict)
 
@@ -82,6 +87,11 @@ def create_dict(state, dict, goal):
     return new_dict
     
 def bfs(states, start, end):
+    """Finds the shortest path by using a 
+    breadth first search. The queue in this case holds
+    and entire list of words. Each time it checks to see if
+    the next list in the queue holds the target word and then
+    returns that path."""
     queue = []
     queue.append([start])
     while queue:
@@ -94,11 +104,12 @@ def bfs(states, start, end):
             new_path.append(adjacent)
             queue.append(new_path)
 
-          
+
 def main():
+    """Creates the dictionary of states and returns the shortest path."""
     dictionary = {}
-    start = 'snakes'
-    goal = 'brains'
+    start = 'egg'
+    goal = 'dog'
     file = open('words.txt')
     for word in file:
         dictionary[word.split()[0]] = word.split()
@@ -109,7 +120,7 @@ def main():
             possible_words[word] = word
     state = State(start)
     states = create_dict(state, possible_words, goal) 
-    print 'Shortest path', bfs(states, start, goal)
+    print 'Shortest path:', bfs(states, start, goal)
     
 
 main()
