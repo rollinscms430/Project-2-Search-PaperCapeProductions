@@ -60,7 +60,7 @@ def is_valid(word, state_name):
             return False
     return True
     
-def create_dict(state, dict, goal):
+def create_dict(state, dict):
     """Creates the dictionary of states. 
     It achieves this by using a depth first search
     strategy by creating a new state and its frontier and then
@@ -108,8 +108,8 @@ def bfs(states, start, end):
 def main():
     """Creates the dictionary of states and returns the shortest path."""
     dictionary = {}
-    start = 'snakes'
-    goal = 'brains'
+    start = 'egg'
+    goal = 'dog'
     file = open('words.txt')
     for word in file:
         dictionary[word.split()[0]] = word.split()
@@ -119,7 +119,7 @@ def main():
         if len(word) == len(goal):
             possible_words[word] = word
     state = State(start)
-    states = create_dict(state, possible_words, goal) 
+    states = create_dict(state, possible_words) 
     print 'Shortest path:', bfs(states, start, goal)
     
 
