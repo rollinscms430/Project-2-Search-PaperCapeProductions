@@ -108,8 +108,8 @@ def bfs(states, start, end):
 def main():
     """Creates the dictionary of states and returns the shortest path."""
     dictionary = {}
-    start = 'egg'
-    goal = 'dog'
+    start = 'snakes'
+    goal = 'brains'
     file = open('words.txt')
     for word in file:
         dictionary[word.split()[0]] = word.split()
